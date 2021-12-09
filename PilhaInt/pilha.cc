@@ -2,8 +2,6 @@
 
 using namespace std;
 
-#define MAX_PILHA 5
-
 class PilhaInt {
     public:
         PilhaInt() {
@@ -40,6 +38,7 @@ class PilhaInt {
         }
     
     private:
+        static const int MAX_PILHA = 10;
         int tab[MAX_PILHA];
         int topo;
 };
