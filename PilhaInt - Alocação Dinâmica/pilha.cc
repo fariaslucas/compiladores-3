@@ -4,15 +4,21 @@ using namespace std;
 
 class PilhaInt {
     public:
-        PilhaInt(int capacidade = 10) {
-            tab = (int *) malloc(capacidade * sizeof(int));
-            for (int i = 0; i < capacidade; i++)
+        PilhaInt(int tamanho = 10) {
+            MAX_PILHA = tamanho;
+            tab = (int *) malloc(MAX_PILHA * sizeof(int));
+
+            for (int i = 0; i < MAX_PILHA; i++)
                 tab[i] = 0;
             topo = 0;
         }
 
         ~PilhaInt() {
             free(tab);
+        }
+
+        int capacidade() {
+            return MAX_PILHA;
         }
 
         void empilha(int valor) {
@@ -43,6 +49,7 @@ class PilhaInt {
         }
     
     private:
+        int MAX_PILHA;
         int *tab;
         int topo;
 };
@@ -56,12 +63,9 @@ PilhaInt embaralha( PilhaInt q ) {
 
 // Apenas para teste
 int main() {
-    PilhaInt p;
-    p << 19 << 18 << 17 << 30;
-
-    p.print(cout);
-
-    cout << endl;
+    PilhaInt a(5), b(15);
+    cout << a.capacidade() << endl;
+    cout << b.capacidade() << endl;
 
     return 0;
 }
