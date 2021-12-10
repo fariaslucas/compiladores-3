@@ -13,6 +13,16 @@ class PilhaInt {
             topo = 0;
         }
 
+        PilhaInt(const PilhaInt& p) {
+            MAX_PILHA = p.MAX_PILHA;
+
+            tab = (int *) malloc(MAX_PILHA * sizeof(int));
+            for (int i = 0; i < MAX_PILHA; i++) 
+                tab[i] = p.tab[i];
+
+            topo = p.topo;
+        }
+
         ~PilhaInt() {
             free(tab);
         }
@@ -63,9 +73,11 @@ PilhaInt embaralha( PilhaInt q ) {
 
 // Apenas para teste
 int main() {
-    PilhaInt a(5), b(15);
-    cout << a.capacidade() << endl;
-    cout << b.capacidade() << endl;
+    PilhaInt a( 7 );
+    a << 3 << 5 << 13 << 19;
+    PilhaInt b{ embaralha( a ) };
+    a.print( cout ); cout << endl;
+    b.print( cout ); cout << endl;
 
     return 0;
 }
