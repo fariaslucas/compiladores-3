@@ -32,6 +32,9 @@ class PilhaInt {
         }
 
         void empilha(int valor) {
+            if (topo > MAX_PILHA-1) {
+                redimensiona(2 * MAX_PILHA);
+            }
             tab[topo++] = valor;
         }
 
@@ -87,14 +90,13 @@ PilhaInt embaralha( PilhaInt q ) {
 
 // Apenas para teste
 int main() {
-    PilhaInt a{7}, b{500000}, c{5};
-    a << 8 << 3 << 1 << 4 << 5;
-    for( int i = 0; i < b.capacidade(); i++ )
-        b << i;
-    c = a;
-    a = b;
-    b = c;
-    cout << a.capacidade() << ", " << b.capacidade() << ", " << c.capacidade() << endl;
+    PilhaInt a{3};
+    for( int i = 0; i < 20; i++ ) {
+        a << i;
+        cout << a.capacidade() << " ";
+    }
+    cout << endl;
+    a.print( cout ); cout << endl;
 
     return 0;
 }
