@@ -17,10 +17,10 @@ class PilhaInt {
             MAX_PILHA = p.MAX_PILHA;
 
             tab = (int *) malloc(MAX_PILHA * sizeof(int));
-            for (int i = 0; i < MAX_PILHA; i++) 
-                tab[i] = p.tab[i];
 
             topo = p.topo;
+            for (int i = 0; i < topo; i++) 
+                tab[i] = p.tab[i];
         }
 
         ~PilhaInt() {
@@ -46,10 +46,16 @@ class PilhaInt {
             o << tab[topo-1] << " ]";
         }
 
-        const PilhaInt& operator = (const PilhaInt& p) {
+        PilhaInt& operator = (const PilhaInt& p) {
+            if (MAX_PILHA != p.MAX_PILHA) {
+                MAX_PILHA = p.MAX_PILHA;
+                tab = (int *) realloc(tab, MAX_PILHA * sizeof(int));
+            }
+
             topo = p.topo;
             for (int i = 0; i < topo; i++) 
                 tab[i] = p.tab[i];
+
             return *this;
         }
 
@@ -73,11 +79,14 @@ PilhaInt embaralha( PilhaInt q ) {
 
 // Apenas para teste
 int main() {
-    PilhaInt a( 7 );
-    a << 3 << 5 << 13 << 19;
-    PilhaInt b{ embaralha( a ) };
-    a.print( cout ); cout << endl;
-    b.print( cout ); cout << endl;
+    PilhaInt a{7}, b{500000}, c{5};
+    a << 8 << 3 << 1 << 4 << 5;
+    for( int i = 0; i < b.capacidade(); i++ )
+        b << i;
+    c = a;
+    a = b;
+    b = c;
+    cout << a.capacidade() << ", " << b.capacidade() << ", " << c.capacidade() << endl;
 
     return 0;
 }
