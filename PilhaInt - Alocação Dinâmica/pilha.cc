@@ -47,10 +47,8 @@ class PilhaInt {
         }
 
         PilhaInt& operator = (const PilhaInt& p) {
-            if (MAX_PILHA != p.MAX_PILHA) {
-                MAX_PILHA = p.MAX_PILHA;
-                tab = (int *) realloc(tab, MAX_PILHA * sizeof(int));
-            }
+            if (MAX_PILHA != p.MAX_PILHA)
+                redimensiona(p.MAX_PILHA);
 
             topo = p.topo;
             for (int i = 0; i < topo; i++) 
@@ -62,6 +60,16 @@ class PilhaInt {
         PilhaInt& operator << (int valor) {
             empilha(valor);
             return *this;
+        }
+
+        void redimensiona(int n) {
+            if (n < MAX_PILHA) {
+                for (int i = topo; i > n; i--)
+                    desempilha();
+            }
+
+            MAX_PILHA = n;
+            tab = (int *) realloc(tab, MAX_PILHA * sizeof(int));
         }
     
     private:
