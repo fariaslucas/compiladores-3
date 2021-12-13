@@ -5,57 +5,65 @@ using namespace std;
 class PilhaInt {
     public:
         PilhaInt(int tamanho = 10) {
-            MAX_PILHA = tamanho;
-            tab = (int *) malloc(MAX_PILHA * sizeof(int));
-
-            for (int i = 0; i < MAX_PILHA; i++)
-                tab[i] = 0;
+            tam_pilha = tamanho;
+            pilha = (int *) malloc(tam_pilha * sizeof(int));
             topo = 0;
+
+            for (int i = 0; i < tam_pilha; i++)
+                pilha[i] = 0;
         }
 
         PilhaInt(const PilhaInt& p) {
-            MAX_PILHA = p.MAX_PILHA;
-
-            tab = (int *) malloc(MAX_PILHA * sizeof(int));
-
+            tam_pilha = p.tam_pilha;
+            pilha = (int *) malloc(tam_pilha * sizeof(int));
             topo = p.topo;
+
             for (int i = 0; i < topo; i++) 
-                tab[i] = p.tab[i];
+                pilha[i] = p.pilha[i];
         }
 
         ~PilhaInt() {
-            free(tab);
-        }
-
-        int capacidade() {
-            return MAX_PILHA;
+            free(pilha);
         }
 
         void empilha(int valor) {
-            if (topo > MAX_PILHA-1) {
-                redimensiona(2 * MAX_PILHA);
-            }
-            tab[topo++] = valor;
+            if (topo > tam_pilha-1)
+                redimensiona(2 * tam_pilha);
+
+            pilha[topo++] = valor;
         }
 
         int desempilha() {
-            return tab[--topo];
+            return pilha[--topo];
+        }
+
+        int capacidade() {
+            return tam_pilha;
         }
 
         const void print(ostream& o) {
             o << "[ ";
             for (int i = 0; i < topo-1; i++)
-                o << tab[i] << ", ";
-            o << tab[topo-1] << " ]";
+                o << pilha[i] << ", ";
+            o << pilha[topo-1] << " ]";
+        }
+
+        void redimensiona(int n) {
+            if (n < tam_pilha)
+                for (int i = topo; i > n; i--)
+                    desempilha();
+
+            tam_pilha = n;
+            pilha = (int *) realloc(pilha, tam_pilha * sizeof(int));
         }
 
         PilhaInt& operator = (const PilhaInt& p) {
-            if (MAX_PILHA != p.MAX_PILHA)
-                redimensiona(p.MAX_PILHA);
+            if (tam_pilha != p.tam_pilha)
+                redimensiona(p.tam_pilha);
 
             topo = p.topo;
             for (int i = 0; i < topo; i++) 
-                tab[i] = p.tab[i];
+                pilha[i] = p.pilha[i];
 
             return *this;
         }
@@ -64,20 +72,10 @@ class PilhaInt {
             empilha(valor);
             return *this;
         }
-
-        void redimensiona(int n) {
-            if (n < MAX_PILHA) {
-                for (int i = topo; i > n; i--)
-                    desempilha();
-            }
-
-            MAX_PILHA = n;
-            tab = (int *) realloc(tab, MAX_PILHA * sizeof(int));
-        }
     
     private:
-        int MAX_PILHA;
-        int *tab;
+        int tam_pilha;
+        int *pilha;
         int topo;
 };
 

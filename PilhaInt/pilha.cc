@@ -6,7 +6,7 @@ class PilhaInt {
     public:
         PilhaInt() {
             topo = 0;
-            for (int i = 0; i < capacidade; i++)
+            for (int i = 0; i < tam_pilha; i++)
                 pilha[i] = 0;
         }
 
@@ -38,8 +38,8 @@ class PilhaInt {
         }
     
     private:
-        static const int capacidade = 5;
-        int pilha[capacidade];
+        static const int tam_pilha = 5;
+        int pilha[tam_pilha];
         int topo;
 };
 
