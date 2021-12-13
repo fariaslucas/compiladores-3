@@ -5,30 +5,30 @@ using namespace std;
 class PilhaInt {
     public:
         PilhaInt() {
-            for (int i = 0; i < MAX_PILHA; i++)
-                tab[i] = 0;
             topo = 0;
+            for (int i = 0; i < capacidade; i++)
+                pilha[i] = 0;
         }
 
         void empilha(int valor) {
-            tab[topo++] = valor;
+            pilha[topo++] = valor;
         }
 
         int desempilha() {
-            return tab[--topo];
+            return pilha[--topo];
         }
 
         const void print(ostream& o) {
             o << "[ ";
             for (int i = 0; i < topo-1; i++)
-                o << tab[i] << ", ";
-            o << tab[topo-1] << " ]";
+                o << pilha[i] << ", ";
+            o << pilha[topo-1] << " ]";
         }
 
         const PilhaInt& operator = (const PilhaInt& p) {
             topo = p.topo;
             for (int i = 0; i < topo; i++) 
-                tab[i] = p.tab[i];
+                pilha[i] = p.pilha[i];
             return *this;
         }
 
@@ -38,8 +38,8 @@ class PilhaInt {
         }
     
     private:
-        static const int MAX_PILHA = 10;
-        int tab[MAX_PILHA];
+        static const int capacidade = 5;
+        int pilha[capacidade];
         int topo;
 };
 
