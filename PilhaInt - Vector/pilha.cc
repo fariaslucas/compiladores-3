@@ -35,16 +35,17 @@ class PilhaInt {
         }
 
         void redimensiona(unsigned int n) {
-            if (n < pilha.size())
+            if (n < pilha.capacity())
                 for (unsigned int i = pilha.size(); i > n; i--)
                     desempilha();
 
             pilha.resize(n);
+            pilha.shrink_to_fit();
         }
 
         PilhaInt& operator = (const PilhaInt& p) {
-            if (pilha.size() != p.pilha.size())
-                redimensiona(p.pilha.size());
+            if (pilha.capacity() != p.pilha.capacity())
+                redimensiona(p.pilha.capacity());
 
             pilha = p.pilha;
             return *this;
@@ -68,13 +69,14 @@ PilhaInt embaralha( PilhaInt q ) {
 
 // Apenas para teste
 int main() {
-    PilhaInt p;
-    p.empilha( 1 );
-    p << 3 << 9 << 13 << 89;
-    cout << p.desempilha() << endl;
-    cout << p.desempilha() << endl;
-    p.print( cout );
-    p << 19 << 18 << 17 << 30;
+    PilhaInt a{7}, c{7};
+    a << 8 << 3 << 1 << 4 << 5;
+    c << 5 << 6 << 1;
+
+    c.redimensiona(5);
+
+    cout << c.capacidade() << endl;
+    cout << a.capacidade() << endl;
 
     return 0;
 }
