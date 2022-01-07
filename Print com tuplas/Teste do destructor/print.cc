@@ -6,6 +6,7 @@ using namespace std;
 
 class AbstractPair {
     public:
+        virtual ~AbstractPair() {}
         virtual void imprime(ostream& o) = 0;
 };
 
